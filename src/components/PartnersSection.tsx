@@ -42,15 +42,18 @@ export default function PartnersSection() {
               <p>• Enable community outreach</p>
             </div>
 
-            {/* Bank Account Details */}
-            <div className="text-white/60 text-sm space-y-2">
-              <p><strong>Capitec Bank:</strong> 2448708327</p>
-              <p><strong>Standard Bank:</strong> 43 425 760 5</p>
-              <p><strong>Nedbank:</strong> 1291364544</p>
-            </div>
+            {/* Give Now Button */}
+            <a
+              href="https://pay.yoco.com/youth-of-the-spirit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-6 py-3 bg-white text-black font-bold rounded-sm hover:bg-white/90 transition"
+            >
+              Give Now
+            </a>
           </div>
 
-          {/* Become a Partner (no button) */}
+          {/* Become a Partner */}
           <div className="p-8 md:p-10 bg-[#1a1a1a] border border-white/10 hover:border-white/20 transition-all duration-300 rounded-sm group">
             <div className="mb-6">
               <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center mb-6">
@@ -71,6 +74,16 @@ export default function PartnersSection() {
               <p>• Exclusive partner community</p>
               <p>• Partner merch and resources</p>
             </div>
+
+            {/* Give Now Button */}
+            <a
+              href="https://pay.yoco.com/youth-of-the-spirit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-6 py-3 bg-white text-black font-bold rounded-sm hover:bg-white/90 transition"
+            >
+              Give Now
+            </a>
           </div>
         </div>
 
