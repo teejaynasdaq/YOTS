@@ -1,19 +1,25 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import thapeloImg from '../assets/teejay.jpeg';
+import sirsbuImg from '../assets/sirsbu.jpeg';
 
 export default function TeamSection() {
   const team = [
     {
       name: "Sir TeeJay",
-      role: "Movement Leader",
+      role: "President",
       image: thapeloImg,
+    },
+    {
+      name: "Min Sambo",
+      role: "VC President",
+      image: sirsbuImg,
     },
   ];
 
   return (
-    <section className="relative bg-black yots-section py-24">
+    <section className="relative bg-black yots-section">
       <div className="yots-container">
-        
+
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
@@ -24,40 +30,38 @@ export default function TeamSection() {
           </p>
         </div>
 
-        {/* Team Grid (centered even with one member) */}
-        <div className="flex justify-center">
-          <div className="grid grid-cols-1 gap-10">
-            {team.map((member, index) => (
-              <div
-                key={index}
-                className="group flex flex-col items-center text-center"
-              >
-{/* Image */}
-<div className="relative w-25 h-25 overflow-hidden rounded-md bg-[#1a1a1a] mb-5">
-  <ImageWithFallback
-    src={member.image}
-    alt={member.name}
-    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-  />
-  <div className="absolute inset-0 bg-black/15 group-hover:bg-black/0 transition-all duration-500"></div>
-</div>
+        {/* Team Grid – same style as reference */}
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto justify-items-center">
+          {team.map((member, index) => (
+            <div
+              key={index}
+              className="group"
+            >
+              {/* Image */}
+              <div className="relative aspect-square mb-4 overflow-hidden rounded-sm bg-[#1a1a1a]">
+                <ImageWithFallback
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-500"></div>
+              </div>
 
-
-
-                {/* Info */}
-                <h3 className="text-lg font-semibold text-white tracking-tight">
+              {/* Info */}
+              <div className="text-center">
+                <h3 className="text-base md:text-lg font-semibold text-white mb-1 tracking-tight">
                   {member.name}
                 </h3>
-                <p className="text-sm text-white/60 mt-1">
+                <p className="text-xs md:text-sm text-white/60 uppercase tracking-wide">
                   {member.role}
                 </p>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
         {/* Bottom Message */}
-        <div className="text-center mt-20">
+        <div className="text-center mt-16">
           <div className="inline-block">
             <p className="text-sm uppercase tracking-widest text-white/50">
               Accountable • United • Committed
