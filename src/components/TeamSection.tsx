@@ -1,18 +1,30 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import thapeloImg from '../assets/teejay.jpeg';
 import sirsbuImg from '../assets/sirsbu.jpeg';
+import sirsisImg from '../assets/sirsis.jpeg';
+import minlefaImg from '../assets/minlefa.jpeg';
 
 export default function TeamSection() {
   const team = [
-    {
+       {
       name: "Sir TeeJay",
       role: "President",
       image: thapeloImg,
     },
-    {
+   {
       name: "Min Sambo",
       role: "VC President",
       image: sirsbuImg,
+    },
+    {
+      name: "Min Mncwango",
+      role: "HOD Media",
+      image: sirsisImg,
+    },
+      {
+      name: "Ms Makhubela",
+      role: "HOD Admin",
+      image: minlefaImg,
     },
   ];
 
@@ -30,15 +42,15 @@ export default function TeamSection() {
           </p>
         </div>
 
-        {/* Team Grid – same style as reference */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto justify-items-center">
+        {/* Team Row */}
+        <div className="flex justify-center items-center gap-6 md:gap-8">
           {team.map((member, index) => (
             <div
               key={index}
-              className="group"
+              className="group text-center"
             >
               {/* Image */}
-              <div className="relative aspect-square mb-4 overflow-hidden rounded-sm bg-[#1a1a1a]">
+              <div className="relative w-40 h-40 mb-4 overflow-hidden rounded-sm bg-[#1a1a1a]">
                 <ImageWithFallback
                   src={member.image}
                   alt={member.name}
@@ -48,14 +60,12 @@ export default function TeamSection() {
               </div>
 
               {/* Info */}
-              <div className="text-center">
-                <h3 className="text-base md:text-lg font-semibold text-white mb-1 tracking-tight">
-                  {member.name}
-                </h3>
-                <p className="text-xs md:text-sm text-white/60 uppercase tracking-wide">
-                  {member.role}
-                </p>
-              </div>
+              <h3 className="text-sm md:text-base font-semibold text-white mb-1 tracking-tight">
+                {member.name}
+              </h3>
+              <p className="text-xs md:text-sm text-white/60 uppercase tracking-wide">
+                {member.role}
+              </p>
             </div>
           ))}
         </div>
