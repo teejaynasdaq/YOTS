@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import yotsLogoWhite from './assets/yotsLogoWhite.png'; // Make sure this exists locally
+import yotsLogoWhite from './assets/yotsLogoWhite.png';
 import Hero from './components/Hero';
 import SloganSection from './components/SloganSection';
 import AboutSection from './components/AboutSection';
@@ -94,7 +94,7 @@ export default function App() {
             <AboutSection id="about" />
             <BeliefsSection id="beliefs" />
             <EventsSection id="events" />
-            <MediaSection /> {/* Media Section now properly included */}
+            <MediaSection /> {/* Media Section */}
             <SpotifySection />
             <PartnersSection />
             <TeamSection id="team" />
