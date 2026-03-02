@@ -20,7 +20,6 @@ export default function App() {
   const scrollToSection = (sectionId: string) => {
     setCurrentPage('home');
     setMobileMenuOpen(false);
-
     setTimeout(() => {
       const element = document.getElementById(sectionId);
       if (element) element.scrollIntoView({ behavior: 'smooth' });
@@ -46,9 +45,9 @@ export default function App() {
         <div className="yots-container py-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <img 
-              src={yotsLogoWhite} 
-              alt="YOTS Logo" 
+            <img
+              src={yotsLogoWhite}
+              alt="YOTS Logo"
               className="w-12 h-12 md:w-14 md:h-14 object-contain"
             />
             <span className="text-white text-lg md:text-xl font-medium tracking-tight">YOTS</span>
@@ -65,7 +64,11 @@ export default function App() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden w-10 h-10 flex items-center justify-center" aria-label="Toggle menu">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden w-10 h-10 flex items-center justify-center"
+            aria-label="Toggle menu"
+          >
             {mobileMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
           </button>
         </div>
@@ -94,7 +97,7 @@ export default function App() {
             <AboutSection id="about" />
             <BeliefsSection id="beliefs" />
             <EventsSection id="events" />
-            <MediaSection /> {/* Media Section */}
+            <MediaSection /> {/* Media Section included */}
             <SpotifySection />
             <PartnersSection />
             <TeamSection id="team" />
