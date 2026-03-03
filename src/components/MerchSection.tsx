@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import yotsLogoWhite from 'figma:asset/74a3a77e2cada444678c4f2ce9720c90450cd7ae.png';
+import yaweh from 'src/assets/yaweh.jpeg';
 import { ExternalLink, X } from 'lucide-react';
 
 type MerchItem = {
