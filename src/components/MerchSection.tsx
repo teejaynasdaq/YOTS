@@ -13,7 +13,7 @@ const DEFAULT_ITEMS: MerchItem[] = [
   {
     id: 'yots-merch-1',
     title: 'YOTS Yaweh Shirt',
-    image: yotsLogoWhite,
+    image: yaweh,
     link: undefined,
   },
 ];
@@ -50,7 +50,7 @@ export default function MerchSection() {
         <div className="grid md:grid-cols-2 gap-0 bg-[#1a1a1a] border border-white/10 overflow-hidden rounded-sm max-w-4xl mx-auto">
           <div className="relative aspect-square bg-black flex items-center justify-center">
             <img
-              src={(items[0]?.image || yotsLogoWhite) as string}
+              src={(items[0]?.image || yaweh) as string}
               alt={items[0]?.title || 'YOTS Merch'}
               className="w-full h-full object-cover"
             />
@@ -115,7 +115,7 @@ export default function MerchSection() {
               <div className="flex gap-4 items-center mb-6">
                 <div className="w-20 h-20 border border-white/20 rounded-sm overflow-hidden bg-black">
                   <img
-                    src={(items[0]?.image || yotsLogoWhite) as string}
+                    src={(items[0]?.image || yaweh) as string}
                     alt={items[0]?.title || 'YOTS Merch'}
                     className="w-full h-full object-cover"
                   />
