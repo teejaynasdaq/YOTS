@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import yaweh from 'src/assets/yaweh.jpeg';
+import yaweh from '../assets/yaweh.jpeg';
 import { ExternalLink, X } from 'lucide-react';
 
 type MerchItem = {
