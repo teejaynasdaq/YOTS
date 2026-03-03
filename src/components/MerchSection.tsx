@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import yaweh from '../assets/yaweh.jpeg'
-import { ExternalLink, X } from 'lucide-react'
+import { ShoppingBag, ExternalLink, X } from 'lucide-react'
 
 type MerchItem = {
   id: string
@@ -32,104 +32,105 @@ export default function MerchSection() {
     try {
       const stored = localStorage.getItem('yots_merch_items')
       if (!stored) return
-
       const parsed = JSON.parse(stored)
       if (Array.isArray(parsed) && parsed.length > 0) {
         setItems(parsed)
       }
-    } catch (error) {
-      console.warn('Failed to load merch items')
-    }
+    } catch {}
   }, [])
 
   return (
-    <section className="relative bg-[#0a0a0a] py-20">
+    <section className="relative bg-[#141414] py-24">
+
+      {/* Top Divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* Section Header */}
-        <div className="text-center mb-14">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
-            Shop
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+            Official Merch
           </h2>
-          <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent max-w-sm mx-auto my-5" />
-          <p className="text-white/60 text-lg">
-            Support the movement with official YOTS merch.
+          <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+            Wear the movement. Represent the mission boldly.
           </p>
         </div>
 
-        {/* Product Card */}
-        <div className="grid md:grid-cols-2 bg-[#141414] border border-white/10 rounded-sm overflow-hidden">
+        {/* Merch Card (Partners Style) */}
+        <div className="max-w-5xl mx-auto bg-[#1a1a1a] border border-white/10 hover:border-white/20 transition-all duration-300 rounded-sm overflow-hidden group">
 
-          {/* Image */}
-          <div className="aspect-square bg-black">
-            <img
-              src={currentItem.image}
-              alt={currentItem.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <div className="grid md:grid-cols-2">
 
-          {/* Details */}
-          <div className="p-10 flex flex-col justify-center">
-
-            <div className="mb-6">
-              <span className="inline-block px-3 py-1 text-xs uppercase tracking-wider border border-white/20 text-white/70 mb-4">
-                Official Merch
-              </span>
-
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                {currentItem.title}
-              </h3>
-
-              <p className="text-white/50 text-sm">
-                Premium quality • R360.00
-              </p>
+            {/* Image Side */}
+            <div className="aspect-[4/5] md:aspect-square bg-black overflow-hidden">
+              <img
+                src={currentItem.image}
+                alt={currentItem.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
             </div>
 
-            <p className="text-white/60 mb-8">
-              Wear the movement. Select your size and proceed to secure checkout.
-            </p>
+            {/* Content Side */}
+            <div className="p-8 md:p-10 flex flex-col justify-center">
 
-            {/* Size Dropdown */}
-            <div className="mb-8">
-              <label className="block text-sm text-white/70 mb-3 uppercase tracking-wider">
-                Select Size
-              </label>
+              <div className="mb-6">
+                <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center mb-6">
+                  <ShoppingBag className="w-6 h-6 text-white/80" strokeWidth={1.5} />
+                </div>
 
-              <div className="relative">
-                <select
-                  value={selectedSize}
-                  onChange={(e) =>
-                    setSelectedSize(e.target.value as Size)
-                  }
-                  className="w-full px-4 py-3 bg-black border border-white/10 text-white rounded-sm focus:outline-none focus:border-white/40 transition appearance-none"
-                >
-                  {SIZES.map((size) => (
-                    <option
-                      key={size}
-                      value={size}
-                      className="bg-black text-white"
-                    >
-                      {size}
-                    </option>
-                  ))}
-                </select>
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
+                  {currentItem.title}
+                </h3>
 
-                <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-white/60">
-                  ▼
+                <p className="text-white/50 text-sm md:text-base">
+                  Premium Cotton • R360.00
+                </p>
+              </div>
+
+              <p className="text-white/60 leading-relaxed mb-8">
+                A statement piece crafted for those who carry the vision with boldness and excellence.
+              </p>
+
+              {/* Size Selection – Partners Card Style */}
+              <div className="mb-10">
+                <label className="block text-sm text-white/70 mb-4 uppercase tracking-wider">
+                  Select Size
+                </label>
+
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                  {SIZES.map((size) => {
+                    const active = selectedSize === size
+
+                    return (
+                      <button
+                        key={size}
+                        onClick={() => setSelectedSize(size)}
+                        className={`
+                          p-4 text-sm font-semibold tracking-wide rounded-sm border
+                          transition-all duration-300
+                          ${active
+                            ? 'bg-white text-black border-white'
+                            : 'bg-[#141414] text-white border-white/10 hover:border-white/20 hover:bg-[#202020]'
+                          }
+                        `}
+                      >
+                        {size}
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
+
+              {/* CTA */}
+              <button
+                onClick={() => setOpen(true)}
+                className="inline-block px-6 py-3 bg-white text-black font-bold rounded-sm hover:bg-white/90 transition w-fit"
+              >
+                Buy Now
+              </button>
+
             </div>
-
-            {/* Buy Button */}
-            <button
-              onClick={() => setOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black hover:bg-white/90 transition rounded-sm w-fit"
-            >
-              Buy Now
-              <ExternalLink className="w-4 h-4" />
-            </button>
-
           </div>
         </div>
       </div>
@@ -138,9 +139,8 @@ export default function MerchSection() {
       {open && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
 
-          <div className="relative w-full max-w-lg bg-[#141414] border border-white/10 rounded-sm p-6">
+          <div className="relative w-full max-w-lg bg-[#141414] border border-white/10 rounded-sm p-8">
 
-            {/* Close */}
             <button
               onClick={() => setOpen(false)}
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center border border-white/20 hover:bg-white hover:text-black transition"
@@ -148,12 +148,12 @@ export default function MerchSection() {
               <X className="w-4 h-4" />
             </button>
 
-            <h4 className="text-xl font-semibold text-white mb-6">
+            <h4 className="text-2xl font-semibold text-white mb-8">
               Checkout
             </h4>
 
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-20 h-20 border border-white/10 bg-black overflow-hidden">
+            <div className="flex items-center gap-5 mb-8">
+              <div className="w-24 h-24 border border-white/10 bg-black overflow-hidden">
                 <img
                   src={currentItem.image}
                   alt={currentItem.title}
@@ -162,14 +162,14 @@ export default function MerchSection() {
               </div>
 
               <div>
-                <div className="text-white font-medium">
+                <div className="text-white font-medium text-lg">
                   {currentItem.title}
                 </div>
                 <div className="text-white/60 text-sm">
                   Size: {selectedSize}
                 </div>
                 <div className="text-white/60 text-sm">
-                  Amount: R360.00
+                  Total: R360.00
                 </div>
               </div>
             </div>
@@ -181,15 +181,17 @@ export default function MerchSection() {
               }
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black hover:bg-white/90 transition rounded-sm"
+              className="inline-block px-6 py-3 bg-white text-black font-bold rounded-sm hover:bg-white/90 transition"
             >
               Pay Securely
-              <ExternalLink className="w-4 h-4" />
             </a>
 
           </div>
         </div>
       )}
+
+      {/* Bottom Divider */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
     </section>
   )
 }
