@@ -55,7 +55,7 @@ export default function EventsSection() {
   const next = () => setIndex((i) => (i + 1) % events.length);
 
   return (
-    <section className="relative bg-black yots-section">
+    <section id="events" className="relative bg-black yots-section">
       <div className="yots-container">
         {/* Section Header */}
         <div className="text-center mb-16">

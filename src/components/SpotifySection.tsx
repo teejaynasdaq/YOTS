@@ -2,7 +2,7 @@ import { ExternalLink } from 'lucide-react';
 
 export default function SpotifySection() {
   return (
-    <section className="relative bg-[#0a0a0a] yots-section overflow-hidden">
+    <section id="spotify" className="relative bg-[#0a0a0a] yots-section overflow-hidden">
       {/* Abstract Soundwave Background */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1200 400">

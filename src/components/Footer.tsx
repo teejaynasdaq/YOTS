@@ -18,7 +18,7 @@ export default function Footer() {
               <div>
                 <h3 className="text-xl font-medium text-white mb-1">YOTS</h3>
                 <p className="text-white/60 text-sm leading-relaxed">
-                  By Christ, In Christ,<br />For Christ
+                  BY CHRIST. IN CHRIST.<br />FOR CHRIST.
                 </p>
               </div>
             </div>

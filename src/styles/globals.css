@@ -161,6 +161,11 @@ html {
   padding: 8rem 0;
 }
 
+/* Keep fixed app navigation from obscuring the final content on small screens. */
+body {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 @media (max-width: 768px) {
   .yots-section {
     padding: 4rem 0;

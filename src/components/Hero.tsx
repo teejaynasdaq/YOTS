@@ -1,8 +1,6 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { ChevronRight } from 'lucide-react';
 import yotsLogoWhite from 'figma:asset/74a3a77e2cada444678c4f2ce9720c90450cd7ae.png';
 import yotsBg from '../assets/yotsbg.png'; 
-import { useRouter } from 'next/router';
 
 
 
@@ -47,7 +45,7 @@ export default function Hero() {
 
         {/* Slogan */}
         <p className="text-lg md:text-xl lg:text-2xl text-white/80 mb-12 font-light tracking-wide animate-fade-in-up" style={{ animationDelay: '0.4s', opacity: 0 }}>
-          By Christ, In Christ, For Christ.
+          BY CHRIST. IN CHRIST. FOR CHRIST.
         </p>
 
         {/* CTA Buttons */}

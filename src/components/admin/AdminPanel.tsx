@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { Save, Plus, Trash2, Upload, ExternalLink, Eraser } from 'lucide-react';
+import yaweh from '../../assets/yaweh.jpeg';
 
 type MerchItem = {
   id: string;
   title: string;
   image: string;
   link?: string;
+  description?: string;
+  price?: number;
+  sizes?: string[];
+  available?: boolean;
 };
 
 type MediaLinks = {
@@ -38,9 +43,18 @@ const DEFAULT_MEDIA: MediaLinks = {
 
 export default function AdminPanel() {
   const [media, setMedia] = useState<MediaLinks>(DEFAULT_MEDIA);
-  const [merch, setMerch] = useState<MerchItem[]>([]);
+  const [merch, setMerch] = useState<MerchItem[]>([{
+    id: 'yots-merch-1',
+    title: 'YOTS Yaweh Shirt',
+    image: yaweh,
+    description: 'A statement piece for those who carry the vision with boldness and excellence.',
+    price: 360,
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    available: true,
+    link: 'https://pay.yoco.com/r/2Dnw1x',
+  }]);
   const [siteTexts, setSiteTexts] = useState<SiteTexts>({
-    slogan: 'By Christ, In Christ, For Christ.',
+    slogan: 'BY CHRIST. IN CHRIST. FOR CHRIST.',
     about:
       'We are a student-led Christian movement passionate about encountering God, growing in faith, and impacting our campus and beyond with the love of Christ.',
     beliefs: [
@@ -79,7 +93,7 @@ export default function AdminPanel() {
   const addMerch = () => {
     setMerch((prev) => [
       ...prev,
-      { id: `item-${Date.now()}`, title: 'New item', image: '', link: '' },
+      { id: `item-${Date.now()}`, title: 'New item', image: '', link: '', description: '', price: 0, sizes: ['M'], available: true },
     ]);
   };
 
@@ -324,6 +338,40 @@ export default function AdminPanel() {
                         className="bg-black text-white border border-white/20 rounded-sm p-2"
                         placeholder="External link (optional)"
                       />
+                      <input
+                        type="number"
+                        value={item.price ?? 0}
+                        onChange={(e) =>
+                          setMerch((prev) => prev.map((m) => (m.id === item.id ? { ...m, price: Number(e.target.value) } : m)))
+                        }
+                        className="bg-black text-white border border-white/20 rounded-sm p-2"
+                        placeholder="Price (R)"
+                      />
+                      <input
+                        type="text"
+                        value={(item.sizes ?? []).join(', ')}
+                        onChange={(e) =>
+                          setMerch((prev) => prev.map((m) => (m.id === item.id ? { ...m, sizes: e.target.value.split(',').map((size) => size.trim()).filter(Boolean) } : m)))
+                        }
+                        className="bg-black text-white border border-white/20 rounded-sm p-2"
+                        placeholder="Sizes: XS, S, M"
+                      />
+                      <textarea
+                        value={item.description ?? ''}
+                        onChange={(e) =>
+                          setMerch((prev) => prev.map((m) => (m.id === item.id ? { ...m, description: e.target.value } : m)))
+                        }
+                        className="md:col-span-2 bg-black text-white border border-white/20 rounded-sm p-2 h-20"
+                        placeholder="Product description"
+                      />
+                      <label className="md:col-span-2 inline-flex items-center gap-2 text-sm text-white/70">
+                        <input
+                          type="checkbox"
+                          checked={item.available !== false}
+                          onChange={(e) => setMerch((prev) => prev.map((m) => (m.id === item.id ? { ...m, available: e.target.checked } : m)))}
+                        />
+                        Available in shop
+                      </label>
                     </div>
                     <button
                       onClick={() => removeMerch(item.id)}

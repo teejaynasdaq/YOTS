@@ -1,136 +1,103 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { Minus, Plus, ShoppingBag, Trash2, ExternalLink } from 'lucide-react'
 import yaweh from '../assets/yaweh.jpeg'
-import { ShoppingBag, ExternalLink } from 'lucide-react'
 
-type MerchItem = {
+export type MerchItem = {
   id: string
   title: string
   image: string
   link?: string
+  description?: string
+  price?: number
+  sizes?: string[]
+  available?: boolean
 }
 
-const DEFAULT_ITEMS: MerchItem[] = [
-  {
-    id: 'yots-merch-1',
-    title: 'YOTS Yaweh Shirt',
-    image: yaweh,
-  },
-]
+const DEFAULT_ITEMS: MerchItem[] = [{
+  id: 'yots-merch-1',
+  title: 'YOTS Yaweh Shirt',
+  image: yaweh,
+  description: 'A statement piece for those who carry the vision with boldness and excellence.',
+  price: 360,
+  sizes: ['XS', 'S', 'M', 'L', 'XL'],
+  available: true,
+}]
+const PAYMENT_LINK = 'https://pay.yoco.com/r/2Dnw1x'
 
-const SIZES = ['XS', 'S', 'M', 'L', 'XL'] as const
-type Size = typeof SIZES[number]
-
-export default function MerchSection() {
+export default function MerchSection({ shopPage = false }: { shopPage?: boolean }) {
   const [items, setItems] = useState<MerchItem[]>(DEFAULT_ITEMS)
-  const [selectedSize, setSelectedSize] = useState<Size>('M')
-
-  const paymentLink = 'https://pay.yoco.com/r/2Dnw1x'
-  const currentItem = items[0] || DEFAULT_ITEMS[0]
+  const [selectedSize, setSelectedSize] = useState('M')
+  const [quantity, setQuantity] = useState(1)
+  const [cartOpen, setCartOpen] = useState(false)
+  const [inCart, setInCart] = useState(false)
 
   useEffect(() => {
+    const stored = localStorage.getItem('yots_merch_items')
+    if (!stored) return
     try {
-      const stored = localStorage.getItem('yots_merch_items')
-      if (!stored) return
       const parsed = JSON.parse(stored)
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        setItems(parsed)
+      if (Array.isArray(parsed) && parsed.length) {
+        setItems(parsed.map((item) => ({ ...DEFAULT_ITEMS[0], ...item })))
       }
-    } catch {}
+    } catch {
+      // Keep the built-in product if saved CMS data is malformed.
+    }
   }, [])
 
-  // Generate payment URL with item + size
-  const buyNowLink = `${paymentLink}?item=${encodeURIComponent(currentItem.title)}&size=${encodeURIComponent(selectedSize)}`
+  const item = items.find((product) => product.available !== false) ?? DEFAULT_ITEMS[0]
+  const cartTotal = inCart ? (item.price ?? 360) * quantity : 0
+  const buyNowLink = `${item.link || PAYMENT_LINK}?item=${encodeURIComponent(item.title)}&size=${encodeURIComponent(selectedSize)}&quantity=${quantity}`
+  const heading = shopPage ? 'Shop YOTS' : 'Shop the movement'
+  const cartLabel = useMemo(() => `${quantity} ${quantity === 1 ? 'item' : 'items'}`, [quantity])
 
   return (
-    <section className="relative bg-[#141414] py-24">
-      {/* Top Divider */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
+    <section id="shop" className={`relative ${shopPage ? 'min-h-screen pt-12' : ''} bg-[#141414] py-24`}>
+      <div className="yots-container">
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-            Official Merch
-          </h2>
-          <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-            Wear the movement. Represent the mission boldly.
-          </p>
+          <p className="text-sm uppercase tracking-[0.3em] text-white/45 mb-4">Official merchandise</p>
+          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">{heading}</h2>
+          <p className="text-lg text-white/70 max-w-2xl mx-auto">Wear the movement. Represent the mission boldly.</p>
         </div>
-
-        {/* Merch Card */}
-        <div className="max-w-5xl mx-auto bg-[#1a1a1a] border border-white/10 hover:border-white/20 transition-all duration-300 rounded-sm overflow-hidden group">
+        <div className="max-w-5xl mx-auto bg-[#1a1a1a] border border-white/10 rounded-sm overflow-hidden">
           <div className="grid md:grid-cols-2">
-
-            {/* Image Side */}
             <div className="aspect-[4/5] md:aspect-square bg-black overflow-hidden">
-              <img
-                src={currentItem.image}
-                alt={currentItem.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
+              <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
             </div>
-
-            {/* Content Side */}
             <div className="p-8 md:p-10 flex flex-col justify-center">
-
-              <div className="mb-6">
-                <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center mb-6">
-                  <ShoppingBag className="w-6 h-6 text-white/80" strokeWidth={1.5} />
+              <div className="flex items-center gap-3 mb-6 text-white/70"><ShoppingBag className="w-6 h-6" /><span>YOTS collection</span></div>
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-3">{item.title}</h3>
+              <p className="text-white/50 mb-6">Premium cotton · R{(item.price ?? 360).toFixed(2)}</p>
+              <p className="text-white/65 leading-relaxed mb-8">{item.description}</p>
+              <label className="text-sm uppercase tracking-widest text-white/50 mb-3">Select size</label>
+              <div className="grid grid-cols-5 gap-2 mb-8">
+                {(item.sizes ?? DEFAULT_ITEMS[0].sizes!).map((size) => (
+                  <button key={size} onClick={() => setSelectedSize(size)} className={`py-3 border rounded-sm ${selectedSize === size ? 'bg-white text-black border-white' : 'border-white/15 text-white hover:border-white/40'}`}>{size}</button>
+                ))}
+              </div>
+              <div className="flex items-center justify-between mb-8">
+                <span className="text-sm text-white/50">Quantity</span>
+                <div className="flex items-center border border-white/15 rounded-sm">
+                  <button aria-label="Decrease quantity" onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-3"><Minus className="w-4 h-4" /></button>
+                  <span className="w-10 text-center">{quantity}</span>
+                  <button aria-label="Increase quantity" onClick={() => setQuantity(quantity + 1)} className="p-3"><Plus className="w-4 h-4" /></button>
                 </div>
-
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
-                  {currentItem.title}
-                </h3>
-
-                <p className="text-white/50 text-sm md:text-base">
-                  Premium Cotton • R360.00
-                </p>
               </div>
-
-              <p className="text-white/60 leading-relaxed mb-8">
-                A statement piece crafted for those who carry the vision with boldness and excellence.
-              </p>
-
-              {/* Size Tiles */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-                {SIZES.map((size) => {
-                  const active = selectedSize === size
-                  return (
-                    <div
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`
-                        cursor-pointer p-6 rounded-sm border transition-all duration-300 flex items-center justify-center text-lg font-semibold
-                        ${active
-                          ? 'bg-white text-black border-white shadow-lg'
-                          : 'bg-[#141414] text-white border-white/10 hover:border-white/20 hover:bg-[#202020]'
-                        }
-                      `}
-                    >
-                      {size}
-                    </div>
-                  )
-                })}
+              <div className="flex gap-3">
+                <button onClick={() => { setInCart(true); setCartOpen(true) }} className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-4 border border-white/25 text-white rounded-sm hover:bg-white/10">Add to cart <ShoppingBag className="w-4 h-4" /></button>
+                <a href={buyNowLink} target="_blank" rel="noopener noreferrer" className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-4 bg-white text-black rounded-sm hover:bg-white/90">Checkout <ExternalLink className="w-4 h-4" /></a>
               </div>
-
-              {/* Buy Now Button */}
-              <a
-                href={buyNowLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-sm hover:bg-white/90 transition w-fit"
-              >
-                Buy Now
-                <ExternalLink className="w-4 h-4" />
-              </a>
-
             </div>
           </div>
         </div>
       </div>
-
-      {/* Bottom Divider */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      {cartOpen && <div className="fixed inset-0 z-[70] bg-black/70 flex items-end md:items-center justify-center p-4" onClick={() => setCartOpen(false)}>
+        <div className="w-full max-w-lg bg-[#1a1a1a] border border-white/15 rounded-sm p-6" onClick={(event) => event.stopPropagation()}>
+          <div className="flex items-center justify-between mb-6"><h3 className="text-2xl font-semibold">Your cart</h3><button onClick={() => setCartOpen(false)} className="text-white/60">Close</button></div>
+          {inCart ? <><div className="flex gap-4 items-center border-b border-white/10 pb-5"><img src={item.image} alt="" className="w-20 h-20 object-cover" /><div className="flex-1"><p className="font-medium">{item.title}</p><p className="text-white/50 text-sm">Size {selectedSize} · {cartLabel}</p></div><button onClick={() => setInCart(false)} aria-label="Remove item"><Trash2 className="w-4 h-4 text-white/60" /></button></div>
+            <div className="flex justify-between py-5 text-lg"><span>Total</span><span>R{cartTotal.toFixed(2)}</span></div>
+            <a href={buyNowLink} target="_blank" rel="noopener noreferrer" className="block text-center px-5 py-4 bg-white text-black rounded-sm">Proceed to payment</a></> : <p className="py-8 text-center text-white/55">Your cart is empty.</p>}
+        </div>
+      </div>}
     </section>
   )
 }

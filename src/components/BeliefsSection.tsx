@@ -1,18 +1,19 @@
 import { Check } from 'lucide-react';
-import yotsLogoWhite from 'figma:asset/74a3a77e2cada444678c4f2ce9720c90450cd7ae.png';
 
-export default function BeliefsSection() {
+export default function BeliefsSection({ id = 'beliefs' }: { id?: string }) {
   const beliefs = [
-    'The Bible is the inspired and authoritative Word of God',
-    'There is one God, eternally existent in three persons: Father, Son, and Holy Spirit',
-    'Jesus Christ is fully God and fully man, born of a virgin',
-    'Salvation is by grace through faith in Jesus Christ alone',
-    'The Holy Spirit empowers believers for Christian living and service',
-    'The Church is the body of Christ, called to worship, fellowship, and mission',
+    ['The Triune God', 'One true God eternally exists as Father, Son and Holy Spirit.'],
+    ['Jesus Christ', 'Jesus Christ is the Son of God, Lord and Saviour, central to our faith and lives.'],
+    ['Scripture', 'The Holy Scriptures are foundational and authoritative for faith, doctrine and living.'],
+    ['Sonship', 'Believers are called to grow in sonship and become increasingly conformed to Christ.'],
+    ['The Holy Spirit', 'We believe in the person, presence and active work of the Holy Spirit.'],
+    ['Prayer & worship', 'Prayer and worship are a lifestyle of honouring God and seeking His will.'],
+    ['Discipleship', 'Teaching, mentorship and obedience to Christ lead believers into spiritual maturity.'],
+    ['Christian community', 'Believers are called to fellowship, encourage one another and grow together.'],
   ];
 
   return (
-    <section className="relative py-24 md:py-32 bg-gradient-to-b from-black to-[#0a0a0a]">
+    <section id={id} className="relative py-24 md:py-32 bg-gradient-to-b from-black to-[#0a0a0a]">
       {/* Decorative Top Line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
@@ -43,9 +44,8 @@ export default function BeliefsSection() {
                 </div>
                 
                 {/* Statement */}
-                <p className="text-base md:text-lg text-white/80 leading-relaxed">
-                  {belief}
-                </p>
+                <h3 className="text-lg font-semibold text-white mb-3">{belief[0]}</h3>
+                <p className="text-base text-white/70 leading-relaxed">{belief[1]}</p>
               </div>
             );
           })}
@@ -55,7 +55,7 @@ export default function BeliefsSection() {
         <div className="mt-20 text-center">
           <div className="inline-block">
             <p className="text-sm uppercase tracking-widest text-white/50">
-              Anchored in Truth
+              BY CHRIST. IN CHRIST. FOR CHRIST.
             </p>
             <div className="h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent mt-3"></div>
           </div>

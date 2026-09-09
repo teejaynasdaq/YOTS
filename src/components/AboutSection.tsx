@@ -1,27 +1,26 @@
 import { Heart, Users, BookOpen } from 'lucide-react';
-import yotsLogoWhite from 'figma:asset/74a3a77e2cada444678c4f2ce9720c90450cd7ae.png';
 
-export default function AboutSection() {
+export default function AboutSection({ id = 'about' }: { id?: string }) {
   const pillars = [
     {
       icon: Heart,
-      title: 'Spirit-Led',
-      description: 'Guided by the Holy Spirit in everything we do, from worship to fellowship.',
+      title: 'Sonship',
+      description: 'Growing into Christlikeness and learning to live like Christ.',
     },
     {
       icon: Users,
-      title: 'Community',
-      description: 'Building authentic relationships and supporting each other in faith.',
+      title: 'Sound doctrine',
+      description: 'Established in Scripture, spiritual maturity and biblical truth.',
     },
     {
       icon: BookOpen,
-      title: 'Biblical',
-      description: 'Rooted in Scripture and committed to truth and discipleship.',
+      title: 'For Christ',
+      description: 'Training believers so the Lordship of Jesus Christ is glorified.',
     },
   ];
 
   return (
-    <section className="relative py-24 md:py-32 bg-black">
+    <section id={id} className="relative py-24 md:py-32 bg-black">
       {/* Decorative Top Line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
@@ -34,9 +33,14 @@ export default function AboutSection() {
           </div>
           <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent max-w-xs mx-auto mb-8"></div>
           <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-            We are a student-led Christian movement passionate about encountering God, growing in faith, 
-            and impacting our campus and beyond with the love of Christ.
+            Youth Of The Spirit (YOTS) is an apostolic Christian movement raised to empower young
+            believers in their sonship in Christ.
           </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto mb-16 grid gap-5 md:grid-cols-3 text-white/65 leading-relaxed">
+          <p className="md:col-span-2">Founded in 2019 by Thapelo Shabangu, mainly known as Sir Teejay (The Bondslave), in Bushbuckridge, Mpumalanga, South Africa, YOTS was formally established in 2021.</p>
+          <p>Our purpose is the glorification of the Lordship of Jesus Christ.</p>
         </div>
 
         {/* Three Pillars */}
