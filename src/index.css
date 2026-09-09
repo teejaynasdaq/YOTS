@@ -1938,6 +1938,15 @@ html {
   padding: 0 2rem;
 }
 
+.yots-app-shell {
+  /* Leave room for the fixed navigation and device safe areas. */
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+}
+
+.yots-bottom-nav {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
+
 @media (width <= 768px) {
   .yots-container {
     padding: 0 1.5rem;

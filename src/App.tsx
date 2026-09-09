@@ -52,7 +52,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  return <div className="min-h-screen bg-black text-white pb-24">
+  return <div className="yots-app-shell min-h-screen bg-black text-white">
     <header className="fixed top-0 left-0 right-0 z-40 pointer-events-none">
       <div className="yots-container py-4 flex items-center justify-between">
         <button onClick={() => navigate('home')} className="pointer-events-auto flex items-center gap-3"><img src={yotsLogoWhite} alt="YOTS Logo" className="w-10 h-10 object-contain" /><span className="font-semibold tracking-tight">YOTS</span></button>

@@ -1,8 +1,9 @@
-import { ImageWithFallback } from './figma/ImageWithFallback';
-import { CheckCircle, Send } from 'lucide-react';
+import { CheckCircle, ExternalLink, Send } from 'lucide-react';
 import { useState } from 'react';
 import partnerMerchImage from 'figma:asset/e7312696bfb78d9e5cebcb310121e00603a25bef.png';
 import yotsLogoWhite from 'figma:asset/74a3a77e2cada444678c4f2ce9720c90450cd7ae.png';
+
+const PARTNER_PAYMENT_LINK = 'https://pay.yoco.com/r/yEELDO';
 
 export default function BecomePartnerPage() {
   const [selectedSize, setSelectedSize] = useState<string>('');
@@ -42,6 +43,18 @@ const handleSendSize = () => {
             <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent max-w-sm mx-auto mb-8"></div>
             <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
               Join us in building this movement and spreading the Gospel on campus
+            </p>
+            <a
+              href={PARTNER_PAYMENT_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center gap-2 rounded-sm bg-white px-6 py-4 text-black transition hover:bg-white/90"
+            >
+              Partner Now
+              <ExternalLink className="h-4 w-4" />
+            </a>
+            <p className="mx-auto mt-4 max-w-md text-xs leading-relaxed text-white/45">
+              Payment is completed securely on Yoco. Keep your confirmation and contact YOTS for next steps; this site does not verify payments automatically.
             </p>
           </div>
         </div>
@@ -237,9 +250,18 @@ const handleSendSize = () => {
               Your partnership makes eternal impact. Together, we're raising a generation 
               that lives radically for Christ.
             </p>
-            <button className="px-8 py-4 bg-white text-black hover:bg-white/90 transition-all duration-300 rounded-sm">
-              Get Started
-            </button>
+            <a
+              href={PARTNER_PAYMENT_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-sm bg-white px-8 py-4 text-black transition-all duration-300 hover:bg-white/90"
+            >
+              Partner Now
+              <ExternalLink className="h-4 w-4" />
+            </a>
+            <p className="mt-4 text-xs text-white/40">
+              After payment, keep your receipt and contact YOTS to confirm your partnership.
+            </p>
           </div>
         </div>
       </section>

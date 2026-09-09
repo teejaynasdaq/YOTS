@@ -46,7 +46,7 @@ export default function MerchSection({ shopPage = false }: { shopPage?: boolean 
 
   const item = items.find((product) => product.available !== false) ?? DEFAULT_ITEMS[0]
   const cartTotal = inCart ? (item.price ?? 360) * quantity : 0
-  const buyNowLink = `${item.link || PAYMENT_LINK}?item=${encodeURIComponent(item.title)}&size=${encodeURIComponent(selectedSize)}&quantity=${quantity}`
+  const buyNowLink = item.link || PAYMENT_LINK
   const heading = shopPage ? 'Shop YOTS' : 'Shop the movement'
   const cartLabel = useMemo(() => `${quantity} ${quantity === 1 ? 'item' : 'items'}`, [quantity])
 

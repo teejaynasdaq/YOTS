@@ -42,14 +42,14 @@ export default function PartnersSection() {
               <p>• Enable community outreach</p>
             </div>
 
-            {/* Give Now Button */}
+            {/* Partner Now Button */}
             <a
-              href="https://pay.yoco.com/youth-of-the-spirit"
+              href="https://pay.yoco.com/r/yEELDO"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-6 py-3 bg-white text-black font-bold rounded-sm hover:bg-white/90 transition"
             >
-              Give Now
+              Partner Now
             </a>
           </div>
 
