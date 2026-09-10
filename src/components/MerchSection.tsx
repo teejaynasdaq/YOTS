@@ -17,7 +17,7 @@ const PRODUCTS: ProductItem[] = [
     name: 'YOTS Emblem',
     image: emblemImg,
     description: 'A symbol of faith, identity, and purpose. Carry the vision with the official YOTS Emblem.',
-    price: 360,
+    price: 600,
     paymentUrl: 'https://pay.yoco.com/r/Q66laN',
   },
   {
